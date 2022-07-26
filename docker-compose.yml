@@ -1,0 +1,32 @@
+version: '3'
+services:
+  nginx:
+    build: 
+      dockerfile: ./nginx
+    ports:
+     - "8080:80"
+     - "8433:433"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./html:/usr/share/nginx/html
+  php:
+    build: 
+      dockerfile: ./php
+    volumes:
+      - ./html:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf
+  mysql:
+    image: mariadb:latest
+    env_file:
+      - ".env"
+    volumes: 
+      ./database/mariadb/data:/var/lib/mariadb
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
