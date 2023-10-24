@@ -1,12 +1,12 @@
 version: '3.9'
 services:
   web:
-    build: ./
-    container_name: nginx
+    build: ./docker/nginx
+    container_name: docker-nginx
     depends_on:
-      - php
+      - php-fpm
     links:
-      - php
+      - php-fpm
     ports:
      - "8080:80"
      - "8443:443"
@@ -14,9 +14,11 @@ services:
     volumes:
       - ./html:/usr/share/nginx/html
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/site.conf
-  php:
-    image: php:8-fpm
-    restart: always
+  php-fpm:
+    build: ./docker/php
+    container_name: "docker-php"
+    ports:
+      - 9000:9000
   # mysql:
   #   image: mariadb:latest
   #   container_name: mysql

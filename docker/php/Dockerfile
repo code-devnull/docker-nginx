@@ -1,10 +1,16 @@
-FROM nginx:alpine
+FROM php:8-fpm-alpine
 
 # RUN groupadd -r app -g 1000 && useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
 #     chmod 755 /usr/share/nginx/html
 RUN apk update && apk add --no-cache vim
-#     && chown -R nginx:nginx /usr/share/nginx/html
+# RUN chown -R nginx:nginx /usr/share/nginx/html
+COPY php.ini $PHP_INI_DIR/conf.d/
 
+# 安裝 php extensions 的神器，請務必一試！
+# https://github.com/mlocati/docker-php-extension-installer
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
+
+RUN install-php-extensions redis mysqli xdebug
 # # Install packages
 # RUN apk --no-cache add php8 php8-fpm php8-mysqli php8-json php8-openssl php8-curl \
 #     php8-zlib php8-xml php8-phar php8-intl php8-dom php8-xmlreader php8-ctype \
