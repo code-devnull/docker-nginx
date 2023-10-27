@@ -1,8 +1,8 @@
-FROM nginx:alpine
+FROM nginx:1.24.0
 
 # RUN groupadd -r app -g 1000 && useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
 #     chmod 755 /usr/share/nginx/html
-RUN apk update && apk add --no-cache vim
+# RUN apk update && apk add --no-cache vim
 #     && chown -R nginx:nginx /usr/share/nginx/html
 
 # # Install packages
@@ -25,3 +25,4 @@ RUN apk update && apk add --no-cache vim
 # # Configure PHP-FPM
 # COPY docker/config/php.ini /etc/php7/custom.ini
 # COPY docker/config/fpm-pool.conf /etc/php7/php-fpm.d/www.conf
+WORKDIR /usr/share/nginx/html

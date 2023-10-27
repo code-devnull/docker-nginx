@@ -1,4 +1,4 @@
 <?php 
 
-echo 'docker nginx';
+phpinfo();
 
