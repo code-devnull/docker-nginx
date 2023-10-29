@@ -1,6 +1,6 @@
 FROM nginx:1.24.0
 
-# RUN groupadd -r app -g 1000 && useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
+# RUN groupadd -r app -g 1000 && useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app &&
 #     chmod 755 /usr/share/nginx/html
 # RUN apk update && apk add --no-cache vim
 #     && chown -R nginx:nginx /usr/share/nginx/html
